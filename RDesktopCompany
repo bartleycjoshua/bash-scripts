@@ -1,0 +1,53 @@
+#!/bin/bash
+#Created by Joshua Bartley
+#8/22/2015
+
+default_user='joshua.bartley'
+default_domain='domain.local'
+default_size=80
+
+echo -e "\e[93mRunning Company RDesktop Script...\e[0m"
+
+# Get username
+read -p "Username ($default_user): " user
+
+if [[ $user == '' ]]; then
+    user=$default_user
+fi
+
+
+# Get domain
+read -p "Domain ($default_domain): " domain
+
+if [[ $domain == '' ]]; then
+    domain=$default_domain
+fi
+
+
+# Get screen size
+while true; do
+    read -p "Screen size ($default_size): " size
+
+    if [[ $size == '' ]]; then
+        size=$default_size
+        break
+    fi
+
+    if [[ $size != *[!0-9]* ]]; then
+        break
+    fi
+done
+
+
+# Get IP
+while true; do
+    read -p "IP Address: " ip
+
+    if [[ $ip != '' ]]; then
+        break
+    fi
+done
+
+
+
+rdesktop -u "$user" -d "$domain" -p - -g "$size%" "$ip" -a 16
